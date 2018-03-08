@@ -9,7 +9,7 @@
 import Foundation
 import Differentiator
 
-extension Array where Element: SectionModelType {
+public extension Array where Element: SectionModelType {
     mutating func moveFromSourceIndexPath(_ sourceIndexPath: IndexPath, destinationIndexPath: IndexPath) {
         let sourceSection = self[sourceIndexPath.section]
         var sourceItems = sourceSection.items
