@@ -13,9 +13,9 @@ import RxSwift
 import RxCocoa
 #endif
 
-let collectionDataSourceNotSet = ASCollectionDataSourceNotSet()
+private let collectionDataSourceNotSet = ASCollectionDataSourceNotSet()
 
-final class ASCollectionDataSourceNotSet: NSObject, ASCollectionDataSource {
+private final class ASCollectionDataSourceNotSet: NSObject, ASCollectionDataSource {
 
     public func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
         return 0
@@ -31,7 +31,7 @@ extension ASCollectionNode: HasDataSource {
 }
 
 /// For more information take a look at `DelegateProxyType`.
-final class RxASCollectionDataSourceProxy: DelegateProxy<ASCollectionNode, ASCollectionDataSource>, ASCollectionDataSource, DelegateProxyType {
+public final class RxASCollectionDataSourceProxy: DelegateProxy<ASCollectionNode, ASCollectionDataSource>, ASCollectionDataSource, DelegateProxyType {
     
     /// Typed parent object.
     public weak private(set) var collectionNode: ASCollectionNode?
@@ -63,5 +63,4 @@ final class RxASCollectionDataSourceProxy: DelegateProxy<ASCollectionNode, ASCol
         _requiredMethodsDataSource = forwardToDelegate ?? collectionDataSourceNotSet
         super.setForwardToDelegate(forwardToDelegate, retainDelegate: retainDelegate)
     }
-    
 }

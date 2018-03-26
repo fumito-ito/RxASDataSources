@@ -11,8 +11,8 @@ import AsyncDisplayKit
 import RxSwift
 import RxCocoa
 
-extension ObservableType {
-    func subscribeProxyDataSource<DelegateProxy: DelegateProxyType>(ofObject object: DelegateProxy.ParentObject, dataSource: DelegateProxy.Delegate, retainDataSource: Bool, binding: @escaping (DelegateProxy, Event<E>) -> Void)
+public extension ObservableType {
+    internal func subscribeProxyDataSource<DelegateProxy: DelegateProxyType>(ofObject object: DelegateProxy.ParentObject, dataSource: DelegateProxy.Delegate, retainDataSource: Bool, binding: @escaping (DelegateProxy, Event<E>) -> Void)
         -> Disposable
         where DelegateProxy.ParentObject: ASDisplayNode {
 

@@ -15,7 +15,7 @@ extension ASTableNode: HasDelegate {
     public typealias Delegate = ASTableDelegate
 }
 
-final class RxASTableDelegateProxy: DelegateProxy<ASTableNode, ASTableDelegate>, DelegateProxyType, ASTableDelegate {
+public final class RxASTableDelegateProxy: DelegateProxy<ASTableNode, ASTableDelegate>, DelegateProxyType, ASTableDelegate {
     
     /// Typed parent object.
     public weak private(set) var tableNode: ASTableNode?
@@ -34,7 +34,7 @@ final class RxASTableDelegateProxy: DelegateProxy<ASTableNode, ASTableDelegate>,
 
 public extension Reactive where Base: ASTableNode {
     
-    var delegate: DelegateProxy<ASTableNode, ASTableDelegate> {
+    public var delegate: DelegateProxy<ASTableNode, ASTableDelegate> {
         return RxASTableDelegateProxy.proxy(for: base)
     }
     
@@ -42,7 +42,7 @@ public extension Reactive where Base: ASTableNode {
     /**
      Reactive wrapper for `delegate` message `tableNode:didSelectRowAtIndexPath:`.
      */
-    var itemSelected: ControlEvent<IndexPath> {
+    public var itemSelected: ControlEvent<IndexPath> {
         let source = self.delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:didSelectRowAt:)))
             .map { a in
                 return try castOrThrow(IndexPath.self, a[1])
@@ -54,7 +54,7 @@ public extension Reactive where Base: ASTableNode {
     /**
      Reactive wrapper for `delegate` message `tableNode:didDeselectRowAtIndexPath:`.
      */
-    var itemDeselected: ControlEvent<IndexPath> {
+    public var itemDeselected: ControlEvent<IndexPath> {
         let source = self.delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:didDeselectRowAt:)))
             .map { a in
                 return try castOrThrow(IndexPath.self, a[1])
@@ -66,7 +66,7 @@ public extension Reactive where Base: ASTableNode {
     /**
      Reactive wrapper for `delegate` message `tableNode:commitEditingStyle:forRowAtIndexPath:`.
      */
-    var itemInserted: ControlEvent<IndexPath> {
+    public var itemInserted: ControlEvent<IndexPath> {
         let source = self.dataSource.methodInvoked(#selector(ASTableDataSource.tableView(_:commit:forRowAt:)))
             .filter { a in
                 return UITableViewCellEditingStyle(rawValue: (try castOrThrow(NSNumber.self, a[1])).intValue) == .insert
@@ -81,7 +81,7 @@ public extension Reactive where Base: ASTableNode {
     /**
      Reactive wrapper for `delegate` message `tableNode:commitEditingStyle:forRowAtIndexPath:`.
      */
-    var itemDeleted: ControlEvent<IndexPath> {
+    public var itemDeleted: ControlEvent<IndexPath> {
         let source = self.dataSource.methodInvoked(#selector(ASTableDataSource.tableView(_:commit:forRowAt:)))
             .filter { a in
                 return UITableViewCellEditingStyle(rawValue: (try castOrThrow(NSNumber.self, a[1])).intValue) == .delete
@@ -96,7 +96,7 @@ public extension Reactive where Base: ASTableNode {
     /**
      Reactive wrapper for `delegate` message `tableNode:moveRowAtIndexPath:toIndexPath:`.
      */
-    var itemMoved: ControlEvent<ItemMovedEvent> {
+    public var itemMoved: ControlEvent<ItemMovedEvent> {
         let source: Observable<ItemMovedEvent> = self.dataSource.methodInvoked(#selector(ASTableDataSource.tableView(_:moveRowAt:to:)))
             .map { a in
                 return (try castOrThrow(IndexPath.self, a[1]), try castOrThrow(IndexPath.self, a[2]))
@@ -108,7 +108,7 @@ public extension Reactive where Base: ASTableNode {
     /**
      Reactive wrapper for `delegate` message `tableNode:willDisplayCell:forRowAtIndexPath:`.
      */
-    var willDisplayCell: ControlEvent<ASCellNode> {
+    public var willDisplayCell: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = self.delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:willDisplayRowWith:)))
             .map { a in
                 return try castOrThrow(ASCellNode.self, a[1])
@@ -120,7 +120,7 @@ public extension Reactive where Base: ASTableNode {
     /**
      Reactive wrapper for `delegate` message `tableNode:didEndDisplayingCell:forRowAtIndexPath:`.
      */
-    var didEndDisplayingCell: ControlEvent<ASCellNode> {
+    public var didEndDisplayingCell: ControlEvent<ASCellNode> {
         let source: Observable<ASCellNode> = self.delegate.methodInvoked(#selector(ASTableDelegate.tableNode(_:didEndDisplayingRowWith:)))
             .map { a in
                 return try castOrThrow(ASCellNode.self, a[1])
@@ -140,7 +140,7 @@ public extension Reactive where Base: ASTableNode {
      .map { ...
      ```
      */
-    func modelSelected<T>(_ modelType: T.Type) -> ControlEvent<T> {
+    public func modelSelected<T>(_ modelType: T.Type) -> ControlEvent<T> {
         let source: Observable<T> = self.itemSelected.flatMap { [weak view = self.base as ASTableNode] indexPath -> Observable<T> in
             guard let view = view else {
                 return Observable.empty()
@@ -163,7 +163,7 @@ public extension Reactive where Base: ASTableNode {
      .map { ...
      ```
      */
-    func modelDeselected<T>(_ modelType: T.Type) -> ControlEvent<T> {
+    public func modelDeselected<T>(_ modelType: T.Type) -> ControlEvent<T> {
         let source: Observable<T> = self.itemDeselected.flatMap { [weak view = self.base as ASTableNode] indexPath -> Observable<T> in
             guard let view = view else {
                 return Observable.empty()
@@ -186,7 +186,7 @@ public extension Reactive where Base: ASTableNode {
      .map { ...
      ```
      */
-    func modelDeleted<T>(_ modelType: T.Type) -> ControlEvent<T> {
+    public func modelDeleted<T>(_ modelType: T.Type) -> ControlEvent<T> {
         let source: Observable<T> = self.itemDeleted.flatMap { [weak view = self.base as ASTableNode] indexPath -> Observable<T> in
             guard let view = view else {
                 return Observable.empty()
@@ -201,7 +201,7 @@ public extension Reactive where Base: ASTableNode {
     /**
      Synchronous helper method for retrieving a model at indexPath through a reactive data source.
      */
-    func model<T>(at indexPath: IndexPath) throws -> T {
+    public func model<T>(at indexPath: IndexPath) throws -> T {
         let dataSource: SectionedViewDataSourceType = castOrFatalError(self.dataSource.forwardToDelegate(), message: "This method only works in case one of the `rx.items*` methods was used.")
         
         let element = try dataSource.model(at: indexPath)

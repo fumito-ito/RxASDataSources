@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 public extension Reactive where Base: ASTableNode {
-    func items<DataSource: RxASTableDataSourceType & ASTableDataSource, O: ObservableType>(dataSource: DataSource)
+    public func items<DataSource: RxASTableDataSourceType & ASTableDataSource, O: ObservableType>(dataSource: DataSource)
         -> (_ source: O)
         -> Disposable where DataSource.Element == O.E {
 

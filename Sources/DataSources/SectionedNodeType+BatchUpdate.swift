@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Differentiator
 
-func indexSet(_ values: [Int]) -> IndexSet {
+internal func indexSet(_ values: [Int]) -> IndexSet {
     let indexSet = NSMutableIndexSet()
     for i in values {
         indexSet.add(i)
@@ -46,7 +46,7 @@ public protocol SectionedNodeType {
     func performBatchUpdates<S>(_ changes: Changeset<S>, animated: Bool, animationConfiguration: RowAnimation)
 }
 
-func _performBatchUpdates<V: SectionedNodeType, S>(_ view: V, changes: Changeset<S>, animationConfiguration: RowAnimation) {
+internal func _performBatchUpdates<V: SectionedNodeType, S>(_ view: V, changes: Changeset<S>, animationConfiguration: RowAnimation) {
     typealias I = S.Item
     
     view.deleteSections(changes.deletedSections, animationStyle: animationConfiguration.deleteAnimation)

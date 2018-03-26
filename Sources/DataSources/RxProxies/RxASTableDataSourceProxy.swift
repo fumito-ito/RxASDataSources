@@ -11,12 +11,9 @@ import AsyncDisplayKit
 import RxSwift
 import RxCocoa
     
-var ASDelegateAssociatedTag: UnsafeRawPointer = UnsafeRawPointer(UnsafeMutablePointer<UInt8>.allocate(capacity: 1))
-var ASDataSourceAssociatedTag: UnsafeRawPointer = UnsafeRawPointer(UnsafeMutablePointer<UInt8>.allocate(capacity: 1))
+private let dataSourceNotSet = ASTableDataSourceNotSet()
     
-let dataSourceNotSet = ASTableDataSourceNotSet()
-    
-final class ASTableDataSourceNotSet: NSObject, ASTableDataSource {
+internal final class ASTableDataSourceNotSet: NSObject, ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         return 0
@@ -36,7 +33,7 @@ extension ASTableNode: HasDataSource {
 }
 
 /// For more information take a look at `DelegateProxyType`.
-final class RxASTableDataSourceProxy: DelegateProxy<ASTableNode, ASTableDataSource>, DelegateProxyType, ASTableDataSource {
+public final class RxASTableDataSourceProxy: DelegateProxy<ASTableNode, ASTableDataSource>, DelegateProxyType, ASTableDataSource {
     
     /// Typed parent object.
     public weak fileprivate(set) var tableNode: ASTableNode?

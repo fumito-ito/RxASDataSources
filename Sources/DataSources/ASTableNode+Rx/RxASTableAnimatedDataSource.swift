@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 import Differentiator
 
-final class RxASTableAnimatedDataSource<S: AnimatableSectionModelType>: ASTableSectionedDataSource<S>, RxASTableDataSourceType {
+open class RxASTableAnimatedDataSource<S: AnimatableSectionModelType>: ASTableSectionedDataSource<S>, RxASTableDataSourceType {
 
     public typealias Element = [S]
     public typealias AnimationType = (ASTableSectionedDataSource<S>, ASTableNode, [Changeset<S>]) -> AnimationTransition
@@ -62,7 +62,7 @@ final class RxASTableAnimatedDataSource<S: AnimatableSectionModelType>: ASTableS
         canMoveRowAtIndexPath: @escaping CanMoveRowAtIndexPath = { _, _ in false },
         sectionIndexTitles: @escaping SectionIndexTitles = { _ in nil },
         sectionForSectionIndexTitle: @escaping SectionForSectionIndexTitle = { _, _, index in index }
-        ) {
+    ) {
         self.animationConfiguration = animationConfiguration
         self.animationType = animationType
 
@@ -86,16 +86,16 @@ final class RxASTableAnimatedDataSource<S: AnimatableSectionModelType>: ASTableS
         canEditRowAtIndexPath: @escaping CanEditRowAtIndexPath = { _, _ in false },
         canMoveRowAtIndexPath: @escaping CanMoveRowAtIndexPath = { _, _ in false }
     ) {
-    self.animationConfiguration = animationConfiguration
-    self.animationType = animationType
-    
-    super.init(
-        configureCell: configureCell,
-        titleForHeaderInSection: titleForHeaderInSection,
-        titleForFooterInSection: titleForFooterInSection,
-        canEditRowAtIndexPath: canEditRowAtIndexPath,
-        canMoveRowAtIndexPath: canMoveRowAtIndexPath
-    )
+        self.animationConfiguration = animationConfiguration
+        self.animationType = animationType
+
+        super.init(
+            configureCell: configureCell,
+            titleForHeaderInSection: titleForHeaderInSection,
+            titleForFooterInSection: titleForFooterInSection,
+            canEditRowAtIndexPath: canEditRowAtIndexPath,
+            canMoveRowAtIndexPath: canMoveRowAtIndexPath
+        )
     }
 
     public init(
@@ -107,16 +107,16 @@ final class RxASTableAnimatedDataSource<S: AnimatableSectionModelType>: ASTableS
         canEditRowAtIndexPath: @escaping CanEditRowAtIndexPath = { _, _ in false },
         canMoveRowAtIndexPath: @escaping CanMoveRowAtIndexPath = { _, _ in false }
     ) {
-    self.animationConfiguration = animationConfiguration
-    self.animationType = animationType
+        self.animationConfiguration = animationConfiguration
+        self.animationType = animationType
 
-    super.init(
-        configureCellBlock: configureCellBlock,
-        titleForHeaderInSection: titleForHeaderInSection,
-        titleForFooterInSection: titleForFooterInSection,
-        canEditRowAtIndexPath: canEditRowAtIndexPath,
-        canMoveRowAtIndexPath: canMoveRowAtIndexPath
-    )
+        super.init(
+            configureCellBlock: configureCellBlock,
+            titleForHeaderInSection: titleForHeaderInSection,
+            titleForFooterInSection: titleForFooterInSection,
+            canEditRowAtIndexPath: canEditRowAtIndexPath,
+            canMoveRowAtIndexPath: canMoveRowAtIndexPath
+        )
     }
     #endif
 
