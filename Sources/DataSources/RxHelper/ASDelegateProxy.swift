@@ -30,6 +30,7 @@ extension ObservableType {
                 // source can never end, otherwise it would release the subscriber, and deallocate the data source
                 .concat(Observable.never())
                 .takeUntil(object.rx.deallocated)
+                .observeOn(MainScheduler())
                 .subscribe { [weak object] (event: RxSwift.Event<E>) in
                     
                     if let object = object {
@@ -52,9 +53,11 @@ extension ObservableType {
             }
 
             return Disposables.create { [weak object] in
-                subscription.dispose()
-                object?.layoutIfNeeded()
-                unregisterDelegate.dispose()
+                DispatchQueue.main.async {
+                    subscription.dispose()
+                    object?.layoutIfNeeded()
+                    unregisterDelegate.dispose()
+                }
             }
     }
 }
