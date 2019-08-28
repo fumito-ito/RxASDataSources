@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		0A1B82C62316323E00BB58F6 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1B82C42316323E00BB58F6 /* RxRelay.framework */; };
 		0A1B82C72316323E00BB58F6 /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1B82C52316323E00BB58F6 /* RxAtomic.framework */; };
-		0A1B82C82316326400BB58F6 /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1B82C52316323E00BB58F6 /* RxAtomic.framework */; };
-		0A1B82C92316326400BB58F6 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1B82C42316323E00BB58F6 /* RxRelay.framework */; };
 		57826BA01F29477000FB0414 /* RxASCollectionReloadDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57826B9F1F29477000FB0414 /* RxASCollectionReloadDataSource.swift */; };
 		57826BA21F29485500FB0414 /* RxASTableReloadDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57826BA11F29485500FB0414 /* RxASTableReloadDataSource.swift */; };
 		57826BAA1F29491800FB0414 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57826BA91F29491800FB0414 /* AppDelegate.swift */; };
@@ -131,8 +129,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A1B82C82316326400BB58F6 /* RxAtomic.framework in Frameworks */,
-				0A1B82C92316326400BB58F6 /* RxRelay.framework in Frameworks */,
 				C569701C2073206200B6D286 /* Differentiator.framework in Frameworks */,
 				C569701D2073206200B6D286 /* PINCache.framework in Frameworks */,
 				C569701E2073206200B6D286 /* PINOperation.framework in Frameworks */,
